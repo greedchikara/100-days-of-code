@@ -1,4 +1,4 @@
-# My implementation
+My implementation
 class Element(object):
 
     def __init__(self, value):
@@ -96,7 +96,7 @@ ll.delete(3)
 print ll.get_position(2).value
 
 
-# udacity implementation
+udacity implementation
 class Element(object):
     def __init__(self, value):
         self.value = value
