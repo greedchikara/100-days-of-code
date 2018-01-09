@@ -49,6 +49,35 @@ class BST(object):
                 return self.preorder_search(start.left, find_val)
         return False
 
+    def findMin(self):
+        return self.findMinRecursive(self.root);
+
+    def findMinRecursive(self, start):
+        while(start.left):
+            start = start.left
+        return start.value
+
+    def findMax(self):
+        return self.findMaxRecursive(self.root)
+
+    def findMaxRecursive(self, start):
+        if not start.right:
+            return start.value
+        return self.findMaxRecursive(start.right)
+        # while(start.right):
+        #     start = start.right
+        # return start.value
+
+    def height(self):
+        return self.findHeightRecursive(self.root)
+
+    def findHeightRecursive(self, start):
+        if not start:
+            return -1
+        return max(self.findHeightRecursive(start.left), self.findHeightRecursive(start.right)) + 1
+        
+        
+
 
 # Set up tree
 tree = BST(4)
@@ -66,3 +95,7 @@ print tree.print_tree()
 print tree.search(4)
 # Should be False
 print tree.search(6)
+
+print tree.findMin()
+print tree.findMax()
+print tree.height()
