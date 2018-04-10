@@ -91,6 +91,11 @@ class BST(object):
             start = start.left
         return start.value
 
+    def findMinRecursiveNode(self, start):
+        while(start.left):
+            start = start.left
+        return start
+
     def findMax(self):
         return self.findMaxRecursive(self.root)
 
@@ -141,6 +146,33 @@ class BST(object):
             else:
                 return False
         return True
+
+    def deleteNode(self, value):
+        self.deleteFromTree(self.root, value)
+
+    def deleteFromTree(self, start, value):
+        if not start:
+            return None
+
+        if value < start.value:
+            start.left = self.deleteFromTree(start.left, value)
+        elif value > start.value:
+            start.right = self.deleteFromTree(start.right, value)
+        else:
+            # Case 1: No Child
+            if start.left == None and start.right == None:
+                start = None
+            # Case 2: One Child
+            elif start.left == None:
+                start = start.right
+            elif start.right == None:
+                start = start.left
+            else:
+                node = self.findMinRecursiveNode(start.right)
+                start.value = node.value
+                start.right = self.deleteFromTree(start.right, node.value)
+            return start
+            
                 
             
     
@@ -160,15 +192,15 @@ class Queue(object):
 tree = BST(4)
 
 # Insert elements
-# tree.insert(2)
-# tree.insert(1)
-# tree.insert(3)
-# tree.insert(5)
+tree.insert(2)
+tree.insert(1)
+tree.insert(3)
+tree.insert(5)
 
-tree.skew_insert(2)
-tree.skew_insert(1)
-tree.skew_insert(3)
-tree.skew_insert(5)
+# tree.skew_insert(2)
+# tree.skew_insert(1)
+# tree.skew_insert(3)
+# tree.skew_insert(5)
 
 # print tree.print_tree()
 
@@ -188,4 +220,7 @@ print tree.print_inorder_tree()
 
 # print tree.print_postorder_tree()
 
-print tree.isBST()
+# print tree.isBST()
+
+tree.deleteNode(2)
+print tree.print_inorder_tree()
